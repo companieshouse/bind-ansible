@@ -1,7 +1,12 @@
 ---
-- name: Validate affected zones
+- name: Validate deployed zones
   ansible.builtin.include_tasks: validate_zone.yml
-  loop: "{{ bind_service_records | unique(attribute='zone') }}"
+  loop: >-
+    {{
+      bind_service_zone_definitions.zones
+      | selectattr('environment', 'equalto', bind_environment)
+      | list
+    }}
   loop_control:
     loop_var: zone_item
     label: "{{ zone_item.zone }}"

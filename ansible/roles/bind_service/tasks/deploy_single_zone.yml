@@ -1,0 +1,39 @@
+---
+- name: Create candidate zone file
+  ansible.builtin.copy:
+    src: >-
+      {{ playbook_dir }}/../bind-zone-data/groups/zones/
+      {{ zone_definition.file }}
+    dest: "{{ bind_service_zone_dir }}/{{ zone_definition.file }}.work"
+    owner: root
+    group: named
+    mode: "0644"
+
+- name: Validate candidate zone
+  ansible.builtin.command:
+    cmd: >-
+      named-checkzone
+      {{ zone_definition.zone }}
+      {{ bind_service_zone_dir }}/{{ zone_definition.file }}.work
+  changed_when: false
+
+- name: Validate full configuration
+  ansible.builtin.command:
+    cmd: named-checkconf -z
+  changed_when: false
+
+- name: Promote validated zone
+  ansible.builtin.copy:
+    remote_src: true
+    src: "{{ bind_service_zone_dir }}/{{ zone_definition.file }}.work"
+    dest: "{{ bind_service_zone_dir }}/{{ zone_definition.file }}"
+    owner: root
+    group: named
+    mode: "0644"
+  notify: Reload named
+
+- name: Remove work file
+  ansible.builtin.file:
+    path: "{{ bind_service_zone_dir }}/{{ zone_definition.file }}.work"
+    state: absent
+  changed_when: false
