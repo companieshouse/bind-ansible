@@ -1,2 +1,2 @@
 ---
-vault_base_path: /applications/{{ aws_profile }}/chs-bind
+vault_base_path: /team-unix-storage/{{ aws_profile }}/bind

@@ -8,29 +8,13 @@
     mode: "{{ bind_service_lock_mode }}"
   changed_when: false
 
-- name: Read zones.yml from remote host
-  ansible.builtin.slurp:
-    src: "{{ bind_zones_git_checkout_dir }}/groups/zones/zones.yml"
-  register: bind_service_bind_zones_yml
+- name: Load zones.yml
+  ansible.builtin.include_vars:
+    file: "{{ playbook_dir }}/../bind-zone-data/groups/zones/zones.yml"
+    name: bind_service_zone_definitions
 
-- name: Parse zones.yml
-  ansible.builtin.set_fact:
-    bind_service_zone_definitions: >-
-      {{
-        bind_service_bind_zones_yml.content
-        | b64decode
-        | from_yaml
-      }}
-
-- name: Manage service records
-  ansible.builtin.include_tasks: records.yml
-  when: bind_service_manage_records | bool
-
-- name: Manage PTR records
-  ansible.builtin.include_tasks: ptr.yml
-  when:
-    - bind_service_manage_ptr | bool
-    - bind_service_auto_ptr | bool
+- name: Deploy zone files
+  ansible.builtin.include_tasks: deploy_zone_files.yml
 
 - name: Validate zones
   ansible.builtin.include_tasks: validate.yml
