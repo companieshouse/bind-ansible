@@ -13,6 +13,15 @@
     file: "{{ playbook_dir }}/../bind-zone-data/groups/zones/zones.yml"
     name: bind_service_zone_definitions
 
+- name: Select zones for current environment
+  ansible.builtin.set_fact:
+    bind_service_matching_zones: >-
+      {{
+        bind_service_zone_definitions.zones
+        | selectattr('environment', 'equalto', bind_environment)
+        | list
+      }}
+
 - name: Deploy zone files
   ansible.builtin.include_tasks: deploy_zone_files.yml
 
