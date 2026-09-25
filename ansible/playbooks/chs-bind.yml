@@ -1,6 +1,6 @@
 ---
 - name: Provision Ansible SSH key
-  import_playbook: ansible-ssh-key.yml
+  import_playbook: ../ansible-ssh-key.yml
 
 - name: Setup chs-bind
   hosts: aws_ec2
