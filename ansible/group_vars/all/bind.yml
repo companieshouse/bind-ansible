@@ -1,6 +1,7 @@
 ---
 bind_user: named
 bind_group: named
+aws_profile: aws_profile=heritage-development-eu-west-2
 
 bind_conf_dir: /etc/named
 bind_zones_dir: /var/named

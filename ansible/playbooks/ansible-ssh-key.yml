@@ -1,6 +1,13 @@
 ---
 - name: Provision Ansible controller with SSH key for remote
   hosts: localhost
+
+  tasks:
+    - debug:
+        var: aws_profile
+
+    - debug:
+        var: vault_base_path
   roles:
     - role: companieshouse.general.ssh_key
       vars:
