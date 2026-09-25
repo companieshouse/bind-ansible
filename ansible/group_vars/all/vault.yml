@@ -1,2 +1,2 @@
 ---
-vault_base_path: /team-unix-storage/{{ aws_profile }}/bind/ansible
+vault_base_path: /team-unix-storage/{{ aws_profile }}/bind
