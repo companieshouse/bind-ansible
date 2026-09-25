@@ -2,23 +2,14 @@
 - name: Provision Ansible controller with SSH key for remote
   hosts: localhost
 
-  vars:
-        ssh_key_name: ansible_remote
-        ssh_key_vault_path: "{{ vault_base_path }}/ansible"
-
   pre_tasks:
-    - debug:
-        var: aws_profile
+  - name: PROVE WHICH PLAYBOOK IS RUNNING
+    debug:
+      msg: "vault-update branch playbook"
 
-    - debug:
-        var: vault_base_path
-
-    - debug:
-        msg: "{{ vault_base_path | default('UNDEFINED') }}/ansible"
 
   roles:
     - role: companieshouse.general.ssh_key
-#      vars:
-#        ssh_key_name: ansible_remote
-#        ssh_key_vault_path: "/team-unix-storage/heritage-development-eu-west-2/bind/ansible"
-#        ssh_key_vault_path: "{{ vault_base_path }}/ansible"
+      vars:
+        ssh_key_name: ansible_remote
+        ssh_key_vault_path: "{{ vault_base_path }}/ansible"
