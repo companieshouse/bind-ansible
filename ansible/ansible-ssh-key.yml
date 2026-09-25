@@ -3,10 +3,9 @@
   hosts: localhost
 
   pre_tasks:
-  - name: PROVE WHICH PLAYBOOK IS RUNNING
-    debug:
-      msg: "vault-update branch playbook"
-
+    - name: PROVE WHICH PLAYBOOK IS RUNNING
+      ansible.builtin.debug:
+        msg: "vault-update branch playbook"
 
   roles:
     - role: companieshouse.general.ssh_key
