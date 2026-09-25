@@ -4,6 +4,10 @@
   connection: local
   gather_facts: false
 
+  vars:
+        ssh_key_name: ansible_remote
+        ssh_key_vault_path: "/team-unix-storage/heritage-development-eu-west-2/bind/ansible"
+
   pre_tasks:
     - debug:
         var: aws_profile
@@ -16,7 +20,7 @@
 
   roles:
     - role: companieshouse.general.ssh_key
-      vars:
-        ssh_key_name: ansible_remote
-        ssh_key_vault_path: "/team-unix-storage/heritage-development-eu-west-2/bind/ansible"
+#      vars:
+#        ssh_key_name: ansible_remote
+#        ssh_key_vault_path: "/team-unix-storage/heritage-development-eu-west-2/bind/ansible"
 #        ssh_key_vault_path: "{{ vault_base_path }}/ansible"
