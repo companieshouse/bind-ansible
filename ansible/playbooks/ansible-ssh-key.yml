@@ -1,6 +1,12 @@
 ---
 - name: Provision Ansible controller with SSH key for remote
   hosts: localhost
+  connection: local
+  gather_facts: false
+
+  vars:
+    ssh_key_name: ansible_remote
+    ssh_key_vault_path: "{{ vault_base_path }}/ansible"
 
   tasks:
     - debug:
@@ -8,8 +14,9 @@
 
     - debug:
         var: vault_base_path
+
+    - debug:
+        var: ssh_key_vault_path
+
   roles:
-    - role: companieshouse.general.ssh_key
-      vars:
-        ssh_key_name: ansible_remote
-        ssh_key_vault_path: "{{ vault_base_path }}/ansible"
+    - companieshouse.general.ssh_key
