@@ -4,13 +4,7 @@
   connection: local
   gather_facts: false
 
-  vars_files:
-    - ../group_vars/all/vault.yml
-  vars:
-    ssh_key_name: ansible_remote
-    ssh_key_vault_path: "{{ vault_base_path }}/ansible"
-
-  tasks:
+  pre_tasks:
     - debug:
         var: aws_profile
 
@@ -18,7 +12,10 @@
         var: vault_base_path
 
     - debug:
-        var: ssh_key_vault_path
+        msg: "{{ vault_base_path | default('UNDEFINED') }}/ansible"
 
   roles:
-    - companieshouse.general.ssh_key
+    - role: companieshouse.general.ssh_key
+      vars:
+        ssh_key_name: ansible_remote
+        ssh_key_vault_path: "{{ vault_base_path }}/ansible"
