@@ -9,8 +9,8 @@
 
   vars:
     ssh_key_name: ansible_remote
-    # ssh_key_vault_path: "{{ vault_base_path }}/secret"
-    ssh_key_vault_path: /team-unix-storage/heritage-development-eu-west-2/bind/secret
+    ssh_key_vault_path: "secret=team-unix-storage/data/heritage-development-eu-west-2/bind/secret"
+#   ssh_key_vault_path: "{{ vault_base_path }}/secret"
 
   pre_tasks:
     - debug:
@@ -55,20 +55,6 @@
                   ssh_key_vault_path
                 )
               }}
-
-        - name: Show secret type
-          ansible.builtin.debug:
-            msg: "Vault lookup succeeded"
-
-        - name: Show secret keys
-          ansible.builtin.debug:
-            var: test_secret
-
-      rescue:
-
-        - name: Vault lookup failed
-          ansible.builtin.debug:
-            msg: "Vault lookup failed before ssh_key role execution"
 
   roles:
     - role: companieshouse.general.ssh_key
