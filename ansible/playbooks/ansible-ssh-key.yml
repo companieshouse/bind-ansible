@@ -33,13 +33,13 @@
         msg: "SECRET_ID present"
       when: lookup('env', 'ANSIBLE_HASHI_VAULT_SECRET_ID') | length > 0
 
-    - name: Test path 3
+    - name: Test KV v2 path
       debug:
         msg: >-
           {{
             lookup(
               'community.hashi_vault.hashi_vault',
-              'secret=team-unix-storage/show/heritage-development-eu-west-2/bind/secret'
+              'secret=team-unix-storage/data/heritage-development-eu-west-2/bind/secret'
             )
           }}
 
