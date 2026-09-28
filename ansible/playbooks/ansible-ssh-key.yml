@@ -3,10 +3,15 @@
   hosts: localhost
   gather_facts: false
 
-  pre_tasks:
-    - name: PROVE WHICH PLAYBOOK IS RUNNING
-      ansible.builtin.debug:
-        msg: "vault-update branch playbook"
+  tasks:
+    - debug:
+        var: ssh_key_vault_path
+
+    - debug:
+        var: vault_base_path
+
+    - debug:
+        var: aws_profile
 
   roles:
     - role: companieshouse.general.ssh_key
