@@ -1,2 +1,3 @@
 ---
-vault_base_path: /team-unix-storage/{{ aws_profile }}/bind
+vault_base_path: /team-unix-storage/heritage-development-eu-west-2/bind
+# vault_base_path: /team-unix-storage/{{ aws_profile }}/bind
