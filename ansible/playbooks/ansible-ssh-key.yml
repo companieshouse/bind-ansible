@@ -22,6 +22,9 @@
         var: aws_profile
 
     - debug:
+        msg: "{{ lookup('env', 'VAULT_ADDR') }}"
+
+    - debug:
         msg: "ROLE_ID present"
       when: lookup('env', 'ANSIBLE_HASHI_VAULT_ROLE_ID') | length > 0
 
