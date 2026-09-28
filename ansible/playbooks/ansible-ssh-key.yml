@@ -8,7 +8,7 @@
 
   vars:
     ssh_key_name: ansible_remote
-    ssh_key_vault_path: "{{ vault_base_path }}/ansible"
+    ssh_key_vault_path: "{{ vault_base_path }}/secret"
 
   pre_tasks:
     - debug:
