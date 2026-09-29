@@ -12,12 +12,25 @@
   debug:
     var: playbook_dir
 
-- name: Find zones.yml
-  command: find /tmp/build -name zones.yml
+- name: Find zones.yml on controller
+  delegate_to: localhost
+  become: false
+  ansible.builtin.command:
+    cmd: find . -name zones.yml
   register: zones_yml
 
 - debug:
     var: zones_yml.stdout_lines
+
+- name: Check bind-terraform path
+  delegate_to: localhost
+  become: false
+  ansible.builtin.stat:
+    path: "{{ playbook_dir }}/../../bind-terraform/groups/zones/zones.yml"
+  register: zones_file
+
+- debug:
+    var: zones_file
 
 - name: Load zones.yml
   ansible.builtin.include_vars:
