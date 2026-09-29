@@ -1,12 +1,12 @@
 ---
-- name: Find matching zone definitions
-  ansible.builtin.set_fact:
-    bind_service_matching_zones: >-
-      {{
-        bind_service_zone_definitions.zones
-        | selectattr('environment', 'equalto', bind_environment)
-        | list
-      }}
+- name: Create zone directories
+  ansible.builtin.file:
+    path: "{{ bind_zones_dir }}/{{ item.file | dirname }}"
+    state: directory
+    owner: "{{ bind_zones_owner }}"
+    group: "{{ bind_zones_group }}"
+    mode: "{{ bind_zones_directory_mode }}"
+  loop: "{{ bind_service_matching_zones }}"
 
 - name: Deploy zone files
   ansible.builtin.include_tasks: deploy_single_zone.yml

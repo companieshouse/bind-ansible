@@ -2,7 +2,7 @@
 - name: Create candidate zone file
   ansible.builtin.copy:
     src: >-
-      {{ playbook_dir }}/../bind-zone-data/groups/zones/
+      {{ playbook_dir }}/../bind-terraform/groups/zones/
       {{ zone_definition.file }}
     dest: "{{ bind_service_zone_dir }}/{{ zone_definition.file }}.work"
     owner: root

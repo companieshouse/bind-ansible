@@ -8,10 +8,31 @@
     mode: "{{ bind_service_lock_mode }}"
   changed_when: false
 
+- name: Show playbook_dir
+  debug:
+    var: playbook_dir
+
+- name: Find zones.yml on controller
+  delegate_to: localhost
+  shell: find / -name zones.yml 2>/dev/null | head -20
+  register: found_zones
+
+- debug:
+    var: found_zones.stdout_lines
+
 - name: Load zones.yml
   ansible.builtin.include_vars:
-    file: "{{ playbook_dir }}/../bind-zone-data/groups/zones/zones.yml"
+    file: "{{ playbook_dir }}/../bind-terraform/groups/zones/zones.yml"
     name: bind_service_zone_definitions
+
+- name: Select zones for current environment
+  ansible.builtin.set_fact:
+    bind_service_matching_zones: >-
+      {{
+        bind_service_zone_definitions.zones
+        | selectattr('environment', 'equalto', bind_environment)
+        | list
+      }}
 
 - name: Deploy zone files
   ansible.builtin.include_tasks: deploy_zone_files.yml

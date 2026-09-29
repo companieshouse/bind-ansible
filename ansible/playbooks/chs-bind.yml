@@ -7,6 +7,21 @@
   remote_user: ec2-user
   become: true
   gather_facts: true
+
+  vars_files:
+    - ../group_vars/all/bind.yml
+    - ../group_vars/all/vault.yml
+    - ../group_vars/all/required_packages.yml
+    - ../group_vars/all/aws.yml
+    - ../group_vars/all/security_scans.yml
+
+  pre_tasks:
+    - debug:
+        var: bind_environment
+  vars:
+    bind_zones_bind_zone_definitions:
+      zones: []
+
   roles:
       - role: hostname
         tags: [hostname]
@@ -23,7 +38,7 @@
       - role: bind_zones
         tags: [bind_zones]
 
-      - role: bind_service
-        tags: [bind_service]
+     # - role: bind_service
+     #   tags: [bind_service]
 
       - role: companieshouse.security.security_scans

@@ -1,8 +1,16 @@
 ---
 - name: Provision Ansible controller with SSH key for remote
   hosts: localhost
+  gather_facts: false
+
+  vars_files:
+    - ../group_vars/all/bind.yml
+    - ../group_vars/all/vault.yml
+
+  vars:
+    ssh_key_name: ansible_remote
+    ssh_key_vault_path: "secret=team-unix-storage/data/heritage-development-eu-west-2/bind/secret"
+#   ssh_key_vault_path: "{{ vault_base_path }}/secret"
+
   roles:
     - role: companieshouse.general.ssh_key
-      vars:
-        ssh_key_name: ansible_remote
-        ssh_key_vault_path: "{{ vault_base_path }}/ansible"

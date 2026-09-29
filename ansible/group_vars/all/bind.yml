@@ -1,6 +1,7 @@
 ---
 bind_user: named
 bind_group: named
+aws_profile: heritage-development-eu-west-2
 
 bind_conf_dir: /etc/named
 bind_zones_dir: /var/named
@@ -49,16 +50,16 @@ bind_service_lock_mode: "0644"
 
 bind_verification:
   - record: ns1
-    zone: "heritage-{{ bind_environment }}.aws.internal"
+    zone: "{{ bind_environment }}.heritage.aws.internal"
     type: A
     expected_value: 10.0.0.10
 
   - record: ns2
-    zone: "heritage-{{ bind_environment }}.aws.internal"
+    zone: "{{ bind_environment }}.heritage.aws.internal"
     type: A
     expected_value: 10.0.0.11
 
   - record: mail
-    zone: "heritage-{{ bind_environment }}.aws.internal"
+    zone: "{{ bind_environment }}.heritage.aws.internal"
     type: A
     expected_value: 10.0.0.20
