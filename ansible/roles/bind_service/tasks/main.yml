@@ -12,14 +12,21 @@
   debug:
     var: playbook_dir
 
-- name: Check zones file location
+- name: Show controller working directory
   delegate_to: localhost
-  ansible.builtin.stat:
-    path: "{{ playbook_dir }}/../../../bind-zone-data/groups/zones/zones.yml"
-  register: zones_file
+  command: pwd
+  register: pwd_out
 
 - debug:
-    var: zones_file.stat.exists
+    var: pwd_out.stdout
+
+- name: Show workspace contents
+  delegate_to: localhost
+  command: find .. -maxdepth 3 -type d
+  register: workspace_dirs
+
+- debug:
+    var: workspace_dirs.stdout_lines
 
 - name: Load zones.yml
   ansible.builtin.include_vars:
