@@ -7,6 +7,14 @@
   remote_user: ec2-user
   become: true
   gather_facts: true
+
+  vars_files:
+    - ../group_vars/all/bind.yml
+    - ../group_vars/all/vault.yml
+    - ../group_vars/all/required_packages.yml
+    - ../group_vars/all/aws.yml
+    - ../group_vars/all/security_scans.yml
+
   roles:
       - role: hostname
         tags: [hostname]
