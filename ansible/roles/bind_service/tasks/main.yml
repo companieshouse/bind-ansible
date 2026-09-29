@@ -12,21 +12,13 @@
   debug:
     var: playbook_dir
 
-- name: Show controller working directory
+- name: Find zones.yml on controller
   delegate_to: localhost
-  command: pwd
-  register: pwd_out
+  shell: find / -name zones.yml 2>/dev/null | head -20
+  register: found_zones
 
 - debug:
-    var: pwd_out.stdout
-
-- name: Show workspace contents
-  delegate_to: localhost
-  command: find .. -maxdepth 3 -type d
-  register: workspace_dirs
-
-- debug:
-    var: workspace_dirs.stdout_lines
+    var: found_zones.stdout_lines
 
 - name: Load zones.yml
   ansible.builtin.include_vars:
