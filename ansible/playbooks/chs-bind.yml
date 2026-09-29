@@ -15,6 +15,10 @@
     - ../group_vars/all/aws.yml
     - ../group_vars/all/security_scans.yml
 
+  vars:
+    bind_zones_bind_zone_definitions:
+      zones: []
+
   roles:
       - role: hostname
         tags: [hostname]
