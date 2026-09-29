@@ -10,7 +10,7 @@
 
 - name: Load zones.yml
   ansible.builtin.include_vars:
-    file: "{{ playbook_dir }}/../bind-zone-data/groups/zones/zones.yml"
+    file: "{{ playbook_dir }}/../bind-terraform/groups/zones/zones.yml"
     name: bind_service_zone_definitions
 
 - name: Select zones for current environment

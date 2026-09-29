@@ -15,6 +15,9 @@
     - ../group_vars/all/aws.yml
     - ../group_vars/all/security_scans.yml
 
+  pre_task:
+    - debug:
+        var: bind_environment
   vars:
     bind_zones_bind_zone_definitions:
       zones: []

@@ -12,49 +12,5 @@
     ssh_key_vault_path: "secret=team-unix-storage/data/heritage-development-eu-west-2/bind/secret"
 #   ssh_key_vault_path: "{{ vault_base_path }}/secret"
 
-  pre_tasks:
-    - debug:
-        var: ssh_key_vault_path
-
-    - debug:
-        var: vault_base_path
-
-    - debug:
-        var: aws_profile
-
-    - debug:
-        msg: "{{ lookup('env', 'VAULT_ADDR') }}"
-
-    - debug:
-        msg: "ROLE_ID present"
-      when: lookup('env', 'ANSIBLE_HASHI_VAULT_ROLE_ID') | length > 0
-
-    - debug:
-        msg: "SECRET_ID present"
-      when: lookup('env', 'ANSIBLE_HASHI_VAULT_SECRET_ID') | length > 0
-
-    - name: Test KV v2 path
-      debug:
-        msg: >-
-          {{
-            lookup(
-              'community.hashi_vault.hashi_vault',
-              'secret=team-unix-storage/data/heritage-development-eu-west-2/bind/secret'
-            )
-          }}
-
-    - name: Test Vault lookup
-      block:
-
-        - name: Retrieve secret from Vault
-          ansible.builtin.set_fact:
-            test_secret: >-
-              {{
-                lookup(
-                  'community.hashi_vault.hashi_vault',
-                  ssh_key_vault_path
-                )
-              }}
-
   roles:
     - role: companieshouse.general.ssh_key
