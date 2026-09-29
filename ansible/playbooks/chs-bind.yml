@@ -15,7 +15,7 @@
     - ../group_vars/all/aws.yml
     - ../group_vars/all/security_scans.yml
 
-  pre_task:
+  pre_tasks:
     - debug:
         var: bind_environment
   vars:
