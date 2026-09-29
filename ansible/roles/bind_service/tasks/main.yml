@@ -8,6 +8,17 @@
     mode: "{{ bind_service_lock_mode }}"
   changed_when: false
 
+- name: Show playbook_dir
+  debug:
+    var: playbook_dir
+
+- name: Find zones.yml
+  command: find /tmp/build -name zones.yml
+  register: zones_yml
+
+- debug:
+    var: zones_yml.stdout_lines
+
 - name: Load zones.yml
   ansible.builtin.include_vars:
     file: "{{ playbook_dir }}/../bind-terraform/groups/zones/zones.yml"
