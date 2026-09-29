@@ -38,7 +38,7 @@
       - role: bind_zones
         tags: [bind_zones]
 
-      - role: bind_service
-        tags: [bind_service]
+     # - role: bind_service
+     #   tags: [bind_service]
 
       - role: companieshouse.security.security_scans
