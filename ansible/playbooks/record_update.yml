@@ -2,6 +2,10 @@
 - name: Provision Ansible SSH key
   import_playbook: ansible-ssh-key.yml
 
+  pre_tasks:
+    - debug:
+        msg: "RECORD_UPDATE_TEST"
+
 - name: Deploy DNS Zone Files
   hosts: tag_Name_bind_ns1
   remote_user: ec2-user
