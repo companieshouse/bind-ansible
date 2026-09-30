@@ -15,13 +15,6 @@
     - ../group_vars/all/aws.yml
     - ../group_vars/all/security_scans.yml
 
-  pre_tasks:
-    - debug:
-        var: bind_environment
-  vars:
-    bind_zones_bind_zone_definitions:
-      zones: []
-
   roles:
       - role: hostname
         tags: [hostname]
@@ -37,8 +30,5 @@
 
       - role: bind_zones
         tags: [bind_zones]
-
-     # - role: bind_service
-     #   tags: [bind_service]
 
       - role: companieshouse.security.security_scans
