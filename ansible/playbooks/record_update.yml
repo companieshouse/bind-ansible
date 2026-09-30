@@ -3,11 +3,18 @@
   import_playbook: ansible-ssh-key.yml
 
 - name: Deploy DNS Zone Files
-  # hosts: aws_ec2
-  hosts: bind-ns1
+  hosts: tag_Name_bind_ns1
   remote_user: ec2-user
   become: true
   gather_facts: false
+
+  pre_tasks:
+    - name: Verify SSH user
+      command: whoami
+      register: whoami_out
+
+    - debug:
+        var: whoami_out.stdout
 
   vars:
     bind_service_validate_zones: true
