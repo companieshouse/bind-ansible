@@ -3,7 +3,9 @@
   import_playbook: ansible-ssh-key.yml
 
 - name: Deploy DNS Zone Files
-  hosts: tag_Name_bind_ns1
+  # hosts: aws_ec2
+  hosts: bind-ns1
+  remote_user: ec2-user
   become: true
   gather_facts: false
 
