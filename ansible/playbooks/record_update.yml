@@ -1,4 +1,7 @@
 ---
+- name: Provision Ansible SSH key
+  import_playbook: ansible-ssh-key.yml
+
 - name: Deploy DNS Zone Files
   hosts: tag_Name_bind_ns1
   become: true
@@ -6,6 +9,10 @@
 
   vars:
     bind_service_validate_zones: true
+
+  vars_files:
+    - ../group_vars/all/bind.yml
+    - ../group_vars/all/vault.yml
 
   roles:
     - bind_service
